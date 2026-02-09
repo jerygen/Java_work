@@ -19,7 +19,7 @@ public class MenuView{
       //2번을 제외하고는 인자값이 필요하고 각각 출력되어야 하는 게 다르기 때문에 각각 메소드로 만듦
 	  while(true){
          System.out.println("---------------------------------------------------------------------------");
-		 System.out.println("1.등록     2.전체검색      3.상품코드검색    4. 수정하기     9.종료");
+		 System.out.println("1.등록     2.전체검색      3.상품코드검색    4. 수정하기    5. 삭제하기    9.종료");
 		 System.out.println("----------------------------------------------------------------------------");
 
          System.out.print("메뉴 선택 > ");
@@ -31,11 +31,14 @@ public class MenuView{
 			 case 2 : 
 				 Goods [] goodsArr = service.selectAll(); 
 			     EndView.printSelectAll(goodsArr);
-			      break;
+			     break;
 			 case 3 : 
 				 this.inputSelectByCode(); break;
 			 case 4 : 
 				 this.inputUpdate() ; break;
+			 case 5:
+				 this.inputDeleteCode();
+					break;	
 			 case 9 : 
 				 System.out.println("다음에 또 이용해ㅜㅈ세요. 프로그램 종료합니다.");
 				 System.exit(0); 
@@ -122,6 +125,21 @@ public class MenuView{
 
   }//메소드끝
 
+  	//상품 코드로 현재 위치 찾기 입력
+	public void inputDeleteCode() {
+		System.out.print("삭제하려는 상품코드 > ");
+		String code = sc.nextLine();
+		
+		//삭제하려는 상품코드에 해당하는 위치(index) 찾기 
+		//int delIndex = service.findLocate(code);
+	    if( service.delete(code) == -1)
+	    	EndView.printMessage(code+"오류로 삭제할 수 없습니다.");
+	    else {
+		 
+		  EndView.printMessage("삭제되었습니다.");
+	    }
+		
+	}
 
 
 }//클래스끝
